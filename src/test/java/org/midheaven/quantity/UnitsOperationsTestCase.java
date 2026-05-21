@@ -70,7 +70,8 @@ public class UnitsOperationsTestCase {
     @Test
     public void unitsPrefixSymbolIsConsistent(){
         assertEquals("kg", kilo(GRAM).symbol());
-        assertEquals("Mg", Prefix.mega(GRAM).symbol());
+        assertEquals("hg", Prefix.hecto(GRAM).symbol());
+        assertEquals("t", Prefix.mega(GRAM).symbol());
         assertEquals("km", kilo(METER).symbol());
     }
     

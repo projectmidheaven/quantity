@@ -21,16 +21,16 @@ import org.midheaven.quantity.measurables.Volume;
 public class StandardDimensions {
     
     // Special cases
-    public static Dimension<One> DIMENSIONLESS = BaseDimension.of("");
+    public static Dimension<One> DIMENSIONLESS = BaseDimension.ofAxis("");
  
     // Fundamental Dimensions
-    public static Dimension<Distance> DISTANCE = BaseDimension.of("L");
-    public static Dimension<Mass> MASS = BaseDimension.of("M");
-    public static Dimension<Time> TIME = BaseDimension.of("T");
-    public static Dimension<Temperature> TEMPERATURE = BaseDimension.of("θ");
-    public static Dimension<ElectricCurrent> ELECTRIC_CURRENT = BaseDimension.of("I");
-    public static Dimension<AmountOfSubstance> AMOUNT_OF_SUBSTANCE = BaseDimension.of("N");
-    public static Dimension<LuminousIntensity> LUMINOUS_INTENSITY = BaseDimension.of("J");
+    public static Dimension<Distance> DISTANCE = BaseDimension.ofAxis("L");
+    public static Dimension<Mass> MASS = BaseDimension.ofAxis("M");
+    public static Dimension<Time> TIME = BaseDimension.ofAxis("T");
+    public static Dimension<Temperature> TEMPERATURE = BaseDimension.ofAxis("θ");
+    public static Dimension<ElectricCurrent> ELECTRIC_CURRENT = BaseDimension.ofAxis("I");
+    public static Dimension<AmountOfSubstance> AMOUNT_OF_SUBSTANCE = BaseDimension.ofAxis("N");
+    public static Dimension<LuminousIntensity> LUMINOUS_INTENSITY = BaseDimension.ofAxis("J");
     
     // Derived Dimensions
     public static Dimension<Area> AREA = DISTANCE.times(DISTANCE);

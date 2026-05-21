@@ -7,7 +7,7 @@ import org.midheaven.quantity.measurables.Measurable;
 record BaseDimension<M extends Measurable>(String axis) implements Dimension<M> , Composition.Composable {
     
     
-    public static <Q extends Measurable> Dimension<Q> of(String axis) {
+    public static <Q extends Measurable> BaseDimension<Q> ofAxis(String axis) {
         return new BaseDimension<>(axis);
     }
     

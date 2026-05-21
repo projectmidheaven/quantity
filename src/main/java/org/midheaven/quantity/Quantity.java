@@ -13,7 +13,7 @@ import org.midheaven.quantity.measurables.Measurable;
 public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>> {
     
     static @NotNullable <M extends Measurable>  Arithmetic<Quantity<M>, Quantity<M>> arithmetic(@NotNullable Unit<M> unit){
-        Check.argumentIsNotNull("unit", unit);
+        Check.argumentIsNotNull(unit, "unit");
         return new QuantityArithmetic<M>(unit);
     }
     
@@ -21,7 +21,7 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
         return new ConvertingQuantityArithmetic<M>(unit, conversion);
     }
     
-    static @NotNullable <M extends Measurable> Interval.Domain<Quantity<M>, Quantity<M>> domain(){
+    static <M extends Measurable> Interval.Domain<Quantity<M>, Quantity<M>> domain(){
         return new Interval.Domain<>() {
             @Override
             public int compare(Quantity<M> a, Quantity<M> b) {
@@ -40,7 +40,7 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
         };
     }
     
-    static @NotNullable <M extends Measurable> Interval.Domain<Quantity<M>, Quantity<M>> domain(@NotNullable QuantityConversion conversion){
+    static <M extends Measurable> Interval.Domain<Quantity<M>, Quantity<M>> domain(@NotNullable QuantityConversion conversion){
         return new Interval.Domain<>() {
             @Override
             public int compare(Quantity<M> a, Quantity<M> b) {
@@ -67,6 +67,24 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
     @NotNullable Quantity<M> minus(@NotNullable Quantity<M> other, @NotNullable  QuantityConversion conversion);
     @NotNullable Quantity<M> plus(@NotNullable Quantity<M> other, @NotNullable QuantityConversion conversion);
     
+    @Override
+    int compareTo(Quantity<M> o);
+    
+    @Override
+    Quantity<M> plus(Quantity<M> other);
+    
+    @Override
+    int sign();
+    
+    @Override
+    Quantity<M> negate();
+    
+    @Override
+    boolean isZero();
+    
+    @Override
+    Quantity<M> minus(Quantity<M> other);
+    
     @NotNullable Quantity<M> abs();
     
     @NotNullable  Quantity<M> times(@NotNullable Rational factor);
@@ -79,4 +97,6 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
     default @NotNullable Quantity<M> over(long factor){
         return over(Rational.of(factor));
     }
+    
+
 }

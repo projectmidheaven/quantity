@@ -90,4 +90,37 @@ record RationalQuantity<M extends Measurable>(Rational magnitude, Unit<M> unit) 
     public String toString(){
         return magnitude + " " + unit.symbol();
     }
+    
+    @Override
+    public boolean equals(Object other){
+        return other instanceof  Quantity that
+            && this.magnitude.equals(that.magnitude())
+            && this.unit.equals(that.unit());
+    }
+    
+    @Override
+    public int hashCode(){
+        return this.magnitude.hashCode();
+    }
+    
+    @Override
+    public Quantity<M> invert() {
+        return new RationalQuantity<>(magnitude.invert(), unit.raise(-1));
+    }
+    
+    @Override
+    public Quantity<M> over(Quantity<M> other) {
+        return new RationalQuantity<>(magnitude.over(other.magnitude()),Unit.simplify(unit.over(other.unit())));
+    }
+    
+    @Override
+    public boolean isOne() {
+        return false;
+    }
+    
+    @Override
+    public Quantity<M> times(Quantity<M> other) {
+        return new RationalQuantity<>(magnitude.times(other.magnitude()), unit.times(other.unit()));
+    }
+    
 }

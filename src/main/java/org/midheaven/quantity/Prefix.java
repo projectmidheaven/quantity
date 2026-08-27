@@ -34,11 +34,42 @@ public class Prefix {
         Map.entry("y", Rational.TEN.raisedTo(24).invert())
     );
     
+    private final static Map<String, Integer> powers = Map.ofEntries(
+        Map.entry("Y", 24),
+        Map.entry("Z",21),
+        Map.entry("E", 18),
+        Map.entry("P", 15),
+        Map.entry("T", 12),
+        Map.entry("G",9),
+        Map.entry("M", 6),
+        Map.entry("k", 3),
+        Map.entry("h", 2),
+        Map.entry("da",1),
+        Map.entry("d", -1),
+        Map.entry("c", -2),
+        Map.entry("m", -3),
+        Map.entry("μ", -6),
+        Map.entry("u", -6),
+        Map.entry("n", -9),
+        Map.entry("p", -12),
+        Map.entry("f", -15),
+        Map.entry("a", -18),
+        Map.entry("z", -21),
+        Map.entry("y", -24)
+    );
+    
     static Optional<Rational> factorOf(String prefix) {
         if (prefix.equals("u")){
             prefix = "μ";
         }
         return Optional.ofNullable(factors.get(prefix));
+    }
+    
+    static Optional<Integer> powerOf(String prefix) {
+        if (prefix.equals("u")){
+            prefix = "μ";
+        }
+        return Optional.ofNullable(powers.get(prefix));
     }
     
     // Multiples

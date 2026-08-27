@@ -12,9 +12,13 @@ import static org.midheaven.quantity.Prefix.mega;
 import static org.midheaven.quantity.Prefix.milli;
 import static org.midheaven.quantity.StandardUnits.AMPERE;
 import static org.midheaven.quantity.StandardUnits.ARE;
+import static org.midheaven.quantity.StandardUnits.BIT;
+import static org.midheaven.quantity.StandardUnits.BYTE;
+import static org.midheaven.quantity.StandardUnits.CELSIUS_DEGREE;
 import static org.midheaven.quantity.StandardUnits.FARAD;
 import static org.midheaven.quantity.StandardUnits.GRAM;
 import static org.midheaven.quantity.StandardUnits.HENRY;
+import static org.midheaven.quantity.StandardUnits.HERTZ;
 import static org.midheaven.quantity.StandardUnits.KILOGRAM;
 import static org.midheaven.quantity.StandardUnits.METER;
 import static org.midheaven.quantity.StandardUnits.MOL;
@@ -95,25 +99,37 @@ public class UnitsOperationsTestCase {
     
     @Test
     public void unitParse(){
-        assertEquals(centi(METER),  Unit.parse(StandardDimensions.DISTANCE, "cm"));
-        assertEquals(deca(METER),  Unit.parse(StandardDimensions.DISTANCE, "dam"));
-        assertEquals(milli(SECOND),  Unit.parse(StandardDimensions.TIME, "ms"));
-        assertEquals(mega(MOL),  Unit.parse(StandardDimensions.AMOUNT_OF_SUBSTANCE, "Mmol"));
-        assertEquals(mega(GRAM),  Unit.parse(StandardDimensions.MASS, "t"));
-        assertEquals(TESLA,  Unit.parse(StandardDimensions.MAGNETIC_FLUX_DENSITY, "T"));
-        assertEquals(VOLT,  Unit.parse(StandardDimensions.VOLTAGE, "V"));
-        assertEquals(METER,  Unit.parse(StandardDimensions.DISTANCE, "m"));
-        assertEquals(kilo(GRAM),  Unit.parse(StandardDimensions.MASS, "kg"));
-        assertEquals(ARE,  Unit.parse(StandardDimensions.AREA, "a"));
-        assertEquals(hecto(ARE),  Unit.parse(StandardDimensions.AREA, "ha"));
-
-        assertEquals(SQUARE_METER,  Unit.parse(StandardDimensions.AREA, "m^2"));
-        assertEquals(METER.over(SECOND),  Unit.parse(StandardDimensions.AREA, "m / s"));
-        assertEquals(METER.over(SECOND).over(KILOGRAM.raise(2)),  Unit.parse(StandardDimensions.AREA, "m / s kg^2"));
-        assertEquals(METER.over(SECOND).over(KILOGRAM.raise(2)),  Unit.parse(StandardDimensions.AREA, "m s^-1 kg^-2"));
+        assertEquals(centi(METER),  Unit.parse( "cm"));
+        assertEquals(deca(METER),  Unit.parse( "dam"));
+        assertEquals(milli(SECOND),  Unit.parse( "ms"));
+        assertEquals(mega(MOL),  Unit.parse( "Mmol"));
+        assertEquals(mega(GRAM),  Unit.parse( "t"));
+        assertEquals(TESLA,  Unit.parse( "T"));
+        assertEquals(VOLT,  Unit.parse( "V"));
+        assertEquals(METER,  Unit.parse( "m"));
+ 
+        assertEquals(kilo(GRAM),  Unit.parse( "kg"));
+        assertEquals(ARE,  Unit.parse( "a"));
+        assertEquals(hecto(ARE),  Unit.parse( "ha"));
         
-        assertEquals(VOLT.over(TON).over(hecto(ARE).raise(2)),  Unit.parse(StandardDimensions.AREA, "V t^-1 ha^-2"));
+        assertEquals(HERTZ,  Unit.parse( "Hz"));
+        assertEquals(mega(HERTZ),  Unit.parse( "MHz"));
+        
+        assertEquals(CELSIUS_DEGREE,  Unit.parse( "ºC"));
+        
+        assertEquals(BIT,  Unit.parse( "b"));
+        assertEquals(BYTE,  Unit.parse( "B"));
+        assertEquals(kilo(BYTE),  Unit.parse( "kB"));
+        
+        assertEquals(SQUARE_METER,  Unit.parse( "m^2"));
+        assertEquals(METER.over(SECOND),  Unit.parse( "m / s"));
+        assertEquals(METER.over(SECOND).over(KILOGRAM.raise(2)),  Unit.parse( "m / s kg^2"));
+        assertEquals(METER.over(SECOND).over(KILOGRAM.raise(2)),  Unit.parse( "m s^-1 kg^-2"));
+        
+        assertEquals(VOLT.over(TON).over(hecto(ARE).raise(2)),  Unit.parse( "V t^-1 ha^-2"));
     }
+    
+
 }
 
 

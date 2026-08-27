@@ -13,6 +13,7 @@ public class FormattingTestCases {
         record Case(String format, Dimension<?> dim){}
         
         var list = List.of(
+            new Case(null, null),
             new Case("", StandardDimensions.DIMENSIONLESS),
             new Case("L", StandardDimensions.DISTANCE),
             new Case("L / T", StandardDimensions.VELOCITY),

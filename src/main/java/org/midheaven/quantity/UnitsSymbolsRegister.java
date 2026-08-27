@@ -39,45 +39,35 @@ public class UnitsSymbolsRegister {
         }
         text = text.trim();
         
-        return switch (text) {
-            case "m" -> Maybe.of((Unit<E>) StandardUnits.METER);
-            case "s" -> Maybe.of((Unit<E>) StandardUnits.SECOND);
-            case "g" -> Maybe.of((Unit<E>) StandardUnits.GRAM);
-            case "K" -> Maybe.of((Unit<E>) StandardUnits.KELVIN);
-            case "A" -> Maybe.of((Unit<E>) StandardUnits.AMPERE);
-            case "mol" -> Maybe.of((Unit<E>) StandardUnits.MOL);
-            case "cd" -> Maybe.of((Unit<E>) StandardUnits.CANDELA);
-            default -> {
-                
-                for (var entry : symbols.entrySet()){
-                    if (entry.getValue().equals(text)){
-                        yield  Maybe.of(entry.getKey());
-                    }
-                }
-                
-                if (text.length() > 1){
-                    var pos = text.indexOf("/");
-                    if (pos > 0){
-                        var n = unitOf(text.substring(0, pos).trim());
-                        var d = unitOf(text.substring(pos + 1).trim());
-                        yield n.zip(d, Unit::over);
-                    }
-                    Unit<E> result = null;
-                    for (var unitText : Strings.Splitter.split(text).by(" ").sequence()){
-                        var u = parsePower(unitText);
-                        if (u.isPresent()){
-                            if (result == null){
-                                result = (Unit<E>) u.get();
-                            } else {
-                                result = result.times((Unit<E>) u.get());
-                            }
-                        }
-                    }
-                    yield Maybe.of(result);
-                }
-                yield Maybe.none();
+        for (var entry : symbols.entrySet()){
+            if (entry.getValue().equals(text)){
+                return   Maybe.of(entry.getKey());
             }
-        };
+        }
+        
+        if (text.length() > 1){
+            var pos = text.indexOf("/");
+            if (pos > 0){
+                var n = unitOf(text.substring(0, pos).trim());
+                var d = unitOf(text.substring(pos + 1).trim());
+                return n.zip(d, Unit::over);
+            }
+            Unit<E> result = null;
+         
+            for (var unitText : Strings.Splitter.split(text).by(" ").sequence()){
+                var u = parsePower(unitText);
+                if (u.isPresent()){
+                    if (result == null){
+                        result = (Unit<E>) u.get();
+                    } else {
+                        result = result.times((Unit<E>) u.get());
+                    }
+                }
+            }
+            
+            return Maybe.of(result);
+        }
+        return Maybe.none();
 
     }
     

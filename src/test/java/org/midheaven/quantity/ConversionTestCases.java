@@ -7,8 +7,11 @@ import org.midheaven.quantity.measurables.Distance;
 import org.midheaven.quantity.measurables.Temperature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.midheaven.quantity.Prefix.kilo;
 import static org.midheaven.quantity.Prefix.milli;
+import static org.midheaven.quantity.StandardUnits.BIT;
+import static org.midheaven.quantity.StandardUnits.BYTE;
 
 public class ConversionTestCases {
     
@@ -71,5 +74,24 @@ public class ConversionTestCases {
                            .from(StandardUnits.CELSIUS_DEGREE.of(2)).inclusive()
                            .to(StandardUnits.FAHRENHEIT_DEGREE.of(2)).inclusive()
             .contains(StandardUnits.CELSIUS_DEGREE.of(4));
+    }
+    
+    @Test
+    public void bitByteConversion(){
+        
+        assertEquals(BYTE.of(1000), conversion.convert(BIT.of(8000), BYTE));
+        assertEquals(Prefix.kilo(BYTE).of(3), conversion.convert(BYTE.of(3000), Prefix.kilo(BYTE)));
+    }
+    
+    @Test
+    public void currencyConversion(){
+        var BRL = StandardUnits.ofCurrency("BRL");
+        var USD = StandardUnits.ofCurrency("USD");
+        
+        assertThrows(Exception.class, () -> conversion.convert(USD.of(1000), BRL));
+        
+        assertEquals(USD.of(1005), USD.of(1000).plus(USD.of(5)));
+        assertEquals(StandardUnits.ONE.of(200), USD.of(1000).over(USD.of(5)));
+        assertEquals(USD.raise(2).of(5000), USD.of(1000).times(USD.of(5)));
     }
 }

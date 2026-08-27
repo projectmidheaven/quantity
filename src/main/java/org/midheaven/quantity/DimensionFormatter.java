@@ -7,6 +7,9 @@ import org.midheaven.quantity.measurables.Measurable;
 public class DimensionFormatter {
     
     public String format(Dimension<?> dimension){
+        if (dimension == null){
+            return null;
+        }
         return switch (dimension){
             case BaseDimension<?> base -> base.axis();
             case ComposedDimension<?> composed -> {

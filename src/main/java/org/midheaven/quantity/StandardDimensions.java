@@ -3,6 +3,8 @@ package org.midheaven.quantity;
 
 import org.midheaven.quantity.measurables.Acceleration;
 import org.midheaven.quantity.measurables.Area;
+import org.midheaven.quantity.measurables.Currency;
+import org.midheaven.quantity.measurables.DigitalInformation;
 import org.midheaven.quantity.measurables.Distance;
 import org.midheaven.quantity.measurables.ElectricCurrent;
 import org.midheaven.quantity.measurables.Energy;
@@ -31,6 +33,10 @@ public class StandardDimensions {
     public static Dimension<ElectricCurrent> ELECTRIC_CURRENT = BaseDimension.ofAxis("I");
     public static Dimension<AmountOfSubstance> AMOUNT_OF_SUBSTANCE = BaseDimension.ofAxis("N");
     public static Dimension<LuminousIntensity> LUMINOUS_INTENSITY = BaseDimension.ofAxis("J");
+    
+    // Auxiliar Dimensions
+    public static Dimension<DigitalInformation> DIGITAL_INFORMATION = BaseDimension.ofAxis("D");
+    public static Dimension<Currency> CURRENCY = BaseDimension.ofAxis("¤");
     
     // Derived Dimensions
     public static Dimension<Area> AREA = DISTANCE.times(DISTANCE);

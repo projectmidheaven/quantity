@@ -7,12 +7,19 @@ import org.midheaven.quantity.measurables.Measurable;
 public sealed interface Unit<M extends Measurable>
     permits BaseUnit , ComposedUnit, MultipleUnit {
     
-    static <Q extends Measurable> Unit<Q> parse(Dimension<Q> dimension, String text) {
+    static <Q extends Measurable> Unit<Q> parse(String text) {
         var possibleUnit =  UnitsSymbolsRegister.instance().unitOf(text);
         if (possibleUnit.isPresent()){
             return (Unit<Q>) possibleUnit.get();
         }
         return  null;
+    }
+    
+    static <M extends Measurable> Unit<M> simplify(Unit<M> unit) {
+        if (unit instanceof ComposedUnit<M> composedUnit){
+            return (Unit<M>) composedUnit.simplify();
+        }
+        return unit;
     }
     
     String symbol();
@@ -42,4 +49,5 @@ public sealed interface Unit<M extends Measurable>
     default Quantity<M> of(long magnitude){
         return new RationalQuantity<>(Rational.of(magnitude), this);
     }
+    
 }

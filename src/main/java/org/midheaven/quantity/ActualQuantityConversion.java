@@ -1,6 +1,7 @@
 package org.midheaven.quantity;
 
 import org.midheaven.math.Rational;
+import org.midheaven.quantity.conversion.BitByteConverter;
 import org.midheaven.quantity.conversion.CelsiusFahrenheitConverter;
 import org.midheaven.quantity.conversion.CelsiusKelvinConverter;
 import org.midheaven.quantity.measurables.Measurable;
@@ -17,6 +18,7 @@ public class ActualQuantityConversion implements QuantityConversion{
     public ActualQuantityConversion(){
         registerConverter(new CelsiusFahrenheitConverter());
         registerConverter(new CelsiusKelvinConverter());
+        registerConverter(new BitByteConverter());
     }
     
     public ActualQuantityConversion registerConverter(QuantityConverter converter){

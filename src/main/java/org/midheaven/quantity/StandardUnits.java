@@ -2,6 +2,8 @@ package org.midheaven.quantity;
 
 import org.midheaven.math.Rational;
 import org.midheaven.quantity.measurables.Area;
+import org.midheaven.quantity.measurables.Currency;
+import org.midheaven.quantity.measurables.DigitalInformation;
 import org.midheaven.quantity.measurables.Distance;
 import org.midheaven.quantity.measurables.ElectricCapacitance;
 import org.midheaven.quantity.measurables.ElectricCurrent;
@@ -16,6 +18,7 @@ import org.midheaven.quantity.measurables.One;
 import org.midheaven.quantity.measurables.Power;
 import org.midheaven.quantity.measurables.Temperature;
 import org.midheaven.quantity.measurables.Time;
+import org.midheaven.quantity.measurables.TimeFrequency;
 import org.midheaven.quantity.measurables.Voltage;
 import org.midheaven.quantity.measurables.Volume;
 
@@ -34,10 +37,18 @@ public class StandardUnits {
     public static Unit<AmountOfSubstance> MOL = new BaseUnit<>("mol", StandardDimensions.AMOUNT_OF_SUBSTANCE);
     public static Unit<LuminousIntensity> CANDELA = new BaseUnit<>("cd", StandardDimensions.LUMINOUS_INTENSITY);
     
+    // Auxiliar Units
+    public static Unit<DigitalInformation> BIT = new BaseUnit<>("b", StandardDimensions.DIGITAL_INFORMATION);
+    /**
+     * Decimal BYTE where kB = 1000 B
+     */
+    public static Unit<DigitalInformation> BYTE = new BaseUnit<>("B", StandardDimensions.DIGITAL_INFORMATION);
+  
     // Derived Units
     public static Unit<Temperature> CELSIUS_DEGREE = new BaseUnit<>("ºC", StandardDimensions.TEMPERATURE);
     public static Unit<Temperature> FAHRENHEIT_DEGREE = new BaseUnit<>("ºF", StandardDimensions.TEMPERATURE);
     
+    public static Unit<TimeFrequency> HERTZ = UnitsSymbolsRegister.register(SECOND.raise(-1), "Hz");
     public static Unit<Mass> TON = UnitsSymbolsRegister.register(Prefix.mega(GRAM), "t");
     public static Unit<Area> SQUARE_METER = METER.times(METER);
     public static Unit<Volume> CUBIC_METER = METER.times(METER).times(METER);
@@ -52,5 +63,10 @@ public class StandardUnits {
     public static Unit<MagneticFluxDensity> TESLA =  UnitsSymbolsRegister.register(KILOGRAM.over(AMPERE).over(SECOND.raise(2)), "T");
     
     public static Unit<Area> ARE = UnitsSymbolsRegister.register(new MultipleUnit<>("a", Rational.TEN.raisedTo(2), SQUARE_METER), "a");
+    
+    public static Unit<Currency> ofCurrency(String isoCode){
+        return new BaseUnit<>(isoCode, StandardDimensions.CURRENCY);
+    }
+    
     private StandardUnits (){}
 }

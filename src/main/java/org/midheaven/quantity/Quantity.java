@@ -7,10 +7,11 @@ import org.midheaven.lang.Signed;
 import org.midheaven.math.AdditionGroup;
 import org.midheaven.math.Arithmetic;
 import org.midheaven.math.Interval;
+import org.midheaven.math.MultiplicationGroup;
 import org.midheaven.math.Rational;
 import org.midheaven.quantity.measurables.Measurable;
 
-public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>> {
+public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>>, MultiplicationGroup<Quantity<M>> {
     
     static @NotNullable <M extends Measurable>  Arithmetic<Quantity<M>, Quantity<M>> arithmetic(@NotNullable Unit<M> unit){
         Check.argumentIsNotNull(unit, "unit");

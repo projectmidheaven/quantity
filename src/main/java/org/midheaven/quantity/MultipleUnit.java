@@ -12,6 +12,7 @@ record MultipleUnit<M extends Measurable>(String msymbol, Rational factor, Unit<
         return referenceUnit.dimension();
     }
     
+   
     @Override
     public boolean equals(Object other){
         return other instanceof MultipleUnit<?>(String s, Rational f, Unit<?> u)

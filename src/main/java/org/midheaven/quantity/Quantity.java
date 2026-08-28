@@ -7,11 +7,10 @@ import org.midheaven.lang.Signed;
 import org.midheaven.math.AdditionGroup;
 import org.midheaven.math.Arithmetic;
 import org.midheaven.math.Interval;
-import org.midheaven.math.MultiplicationGroup;
 import org.midheaven.math.Rational;
 import org.midheaven.quantity.measurables.Measurable;
 
-public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>>, MultiplicationGroup<Quantity<M>> {
+public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>> {
     
     static @NotNullable <M extends Measurable>  Arithmetic<Quantity<M>, Quantity<M>> arithmetic(@NotNullable Unit<M> unit){
         Check.argumentIsNotNull(unit, "unit");
@@ -94,10 +93,14 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
     default @NotNullable Quantity<M> times(long factor){
         return times(Rational.of(factor));
     }
-    
     default @NotNullable Quantity<M> over(long factor){
         return over(Rational.of(factor));
     }
     
+    <R extends Measurable> Quantity<R> invert();
+    
+    <R extends Measurable, S extends Measurable> Quantity<R> over(Quantity<S> other);
+    
+    <R extends Measurable, S extends Measurable> Quantity<R> times(Quantity<S> other);
 
 }

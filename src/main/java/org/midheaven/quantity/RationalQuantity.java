@@ -93,7 +93,7 @@ record RationalQuantity<M extends Measurable>(Rational magnitude, Unit<M> unit) 
     
     @Override
     public boolean equals(Object other){
-        return other instanceof  Quantity that
+        return other instanceof  Quantity<?> that
             && this.magnitude.equals(that.magnitude())
             && this.unit.equals(that.unit());
     }
@@ -103,23 +103,15 @@ record RationalQuantity<M extends Measurable>(Rational magnitude, Unit<M> unit) 
         return this.magnitude.hashCode();
     }
     
-    @Override
-    public Quantity<M> invert() {
+    public <R extends Measurable> Quantity<R> invert() {
         return new RationalQuantity<>(magnitude.invert(), unit.raise(-1));
     }
     
-    @Override
-    public Quantity<M> over(Quantity<M> other) {
+    public <R extends Measurable, S extends Measurable> Quantity<R> over(Quantity<S> other) {
         return new RationalQuantity<>(magnitude.over(other.magnitude()),Unit.simplify(unit.over(other.unit())));
     }
     
-    @Override
-    public boolean isOne() {
-        return false;
-    }
-    
-    @Override
-    public Quantity<M> times(Quantity<M> other) {
+    public <R extends Measurable, S extends Measurable> Quantity<R> times(Quantity<S> other) {
         return new RationalQuantity<>(magnitude.times(other.magnitude()), unit.times(other.unit()));
     }
     

@@ -94,4 +94,11 @@ public class ConversionTestCases {
         assertEquals(StandardUnits.ONE.of(200), USD.of(1000).over(USD.of(5)));
         assertEquals(USD.raise(2).of(5000), USD.of(1000).times(USD.of(5)));
     }
+    
+    @Test
+    public void frequencyConversion(){
+        
+        assertEquals(StandardUnits.HERTZ.of(Rational.of(20).invert()), StandardUnits.SECOND.of(20).invert());
+        assertEquals(StandardUnits.HERTZ.times(StandardUnits.HENRY).of(Rational.of(10)), StandardUnits.HENRY.of(20).over(StandardUnits.SECOND.of(2)));
+    }
 }

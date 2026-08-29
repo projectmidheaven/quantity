@@ -39,7 +39,7 @@ public class ActualQuantityConversion implements QuantityConversion{
                 var x = resolveScaleFactor(original.unit());
                 var y = resolveScaleFactor(targetUnit);
                 // try by same base scaling
-                if (x.unit.equals(y.unit)){
+                if (x.unit.equals(y.unit)) {
                     var scaleFactor = x.factor.over(y.factor);
                     converter = new ScaleConverter(original.unit(), targetUnit, scaleFactor);
                 } else {
@@ -56,6 +56,16 @@ public class ActualQuantityConversion implements QuantityConversion{
                                 break outer;
                             }
                         }
+                    }
+                    
+                    if (converter == null && endOptions.size() == 1){
+                        // the direct converter
+                        var baseConverter = converters.get(endOptions.getFirst());
+                        converter = new ComposedQuantityConverter(
+                            new ScaleConverter(original.unit(), endOptions.getFirst().fromUnit, x.factor),
+                            baseConverter
+                        );
+                    
                     }
                 }
                 

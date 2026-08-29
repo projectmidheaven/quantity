@@ -72,6 +72,10 @@ public class Prefix {
         return Optional.ofNullable(powers.get(prefix));
     }
     
+    public static <M extends Measurable> Unit<M> prefixWithPower(Unit<M> original, int power) {
+        return powers.entrySet().stream().filter(entry -> entry.getValue() == power).findFirst()
+            .map(entry -> of(entry.getKey(), original)).orElse(original);
+    }
     // Multiples
     
     static <M extends Measurable> Unit<M> of(String prefix, Unit<M> base){

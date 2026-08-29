@@ -23,9 +23,7 @@ public class UnitsSymbolsRegister {
     }
     
     public <E extends Measurable>  UnitsSymbolsRegister registerUnitSymbol(Unit<E> unit,String symbol){
-        if (!symbol.isEmpty()){
-            symbols.put(unit, symbol);
-        }
+        symbols.put(unit, symbol);
         return this;
     }
     

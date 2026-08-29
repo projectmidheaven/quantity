@@ -9,9 +9,11 @@ import org.midheaven.quantity.measurables.Temperature;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.midheaven.quantity.Prefix.kilo;
+import static org.midheaven.quantity.Prefix.mega;
 import static org.midheaven.quantity.Prefix.milli;
 import static org.midheaven.quantity.StandardUnits.BIT;
 import static org.midheaven.quantity.StandardUnits.BYTE;
+import static org.midheaven.quantity.StandardUnits.ONE;
 
 public class ConversionTestCases {
     
@@ -91,7 +93,7 @@ public class ConversionTestCases {
         assertThrows(Exception.class, () -> conversion.convert(USD.of(1000), BRL));
         
         assertEquals(USD.of(1005), USD.of(1000).plus(USD.of(5)));
-        assertEquals(StandardUnits.ONE.of(200), USD.of(1000).over(USD.of(5)));
+        assertEquals(ONE.of(200), USD.of(1000).over(USD.of(5)));
         assertEquals(USD.raise(2).of(5000), USD.of(1000).times(USD.of(5)));
     }
     
@@ -100,5 +102,14 @@ public class ConversionTestCases {
         
         assertEquals(StandardUnits.HERTZ.of(Rational.of(20).invert()), StandardUnits.SECOND.of(20).invert());
         assertEquals(StandardUnits.HERTZ.times(StandardUnits.HENRY).of(Rational.of(10)), StandardUnits.HENRY.of(20).over(StandardUnits.SECOND.of(2)));
+    }
+    
+    @Test
+    public void humanization(){
+        
+        assertEquals(mega(BYTE).of(Rational.of(208117, 100000)), BIT.of(16649363).humanize());
+        assertEquals(mega(BYTE).of(Rational.of(2)), mega(BIT).of(16).humanize());
+        assertEquals(kilo(ONE).of(Rational.of(20)), ONE.of(20000).humanize());
+        assertEquals(kilo(ONE).of(Rational.of(1654, 1000)), ONE.of(1654).humanize());
     }
 }

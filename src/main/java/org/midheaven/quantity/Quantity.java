@@ -10,6 +10,8 @@ import org.midheaven.math.Interval;
 import org.midheaven.math.Rational;
 import org.midheaven.quantity.measurables.Measurable;
 
+import static org.midheaven.quantity.StandardDimensions.DIGITAL_INFORMATION;
+
 public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ordered<Quantity<M>>, AdditionGroup<Quantity<M>> {
     
     static @NotNullable <M extends Measurable>  Arithmetic<Quantity<M>, Quantity<M>> arithmetic(@NotNullable Unit<M> unit){
@@ -103,4 +105,35 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
     
     <R extends Measurable, S extends Measurable> Quantity<R> times(Quantity<S> other);
 
+    default Quantity<M> humanize(){
+        // reduce to number closes to 1
+        if (magnitude().isZero()){
+            return this;
+        }
+        
+        var original = this;
+        if (unit().dimension().equals(DIGITAL_INFORMATION)){
+            original = new ActualQuantityConversion().convert(this, (Unit<M>) StandardUnits.BYTE);
+        }
+        
+        // Calculate the base-10 exponent floor to find the nearest metric scale
+        double log10 = Math.log10(original.magnitude().abs().toDouble());
+        int exponentFloor = (int) Math.floor(log10);
+        
+        // Align to the nearest standard 10^3 engineering tier (..., -3, 0, 3, 6, ...)
+        int targetExponent = (exponentFloor >= 0)
+                                 ? (exponentFloor / 3) * 3
+                                 : ((exponentFloor - 2) / 3) * 3;
+        
+        var newUnit = Prefix.prefixWithPower(original.unit(),targetExponent);
+        
+        // Scale magnitude and combine the new prefix with the original unit
+        var scaledMagnitude = original.magnitude().over(Rational.TEN.raisedTo(targetExponent));
+  
+        var result = newUnit.of(scaledMagnitude);
+        
+    
+        
+        return result;
+    }
 }

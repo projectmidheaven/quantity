@@ -37,6 +37,11 @@ record BaseDimension<M extends Measurable>(String axis) implements Dimension<M> 
     }
     
     @Override
+    public String symbol() {
+        return axis;
+    }
+ 
+    @Override
     public boolean equals(Object other){
         return other instanceof BaseDimension(String otherAxis)
             && this.axis.equals(otherAxis);

@@ -26,4 +26,9 @@ record ComposedDimension<M extends Measurable>(Composition composition) implemen
     public <R extends Measurable> Dimension<R> raise(int exponent) {
         return new ComposedDimension<>(composition.raise(exponent));
     }
+    
+    @Override
+    public String symbol() {
+        return composition.symbol();
+    }
 }

@@ -1,5 +1,6 @@
 package org.midheaven.quantity;
 
+import org.midheaven.collections.Sequence;
 import org.midheaven.lang.Maybe;
 import org.midheaven.lang.Strings;
 import org.midheaven.quantity.measurables.Measurable;
@@ -25,6 +26,10 @@ public class UnitsSymbolsRegister {
     public <E extends Measurable>  UnitsSymbolsRegister registerUnitSymbol(Unit<E> unit,String symbol){
         symbols.put(unit, symbol);
         return this;
+    }
+    
+    public Sequence<Unit<?>> all(){
+        return Sequence.builder().from(symbols.keySet()).map(it -> (Unit<?>)it);
     }
     
     public <M extends Measurable> Maybe<String> symbolOf(Unit<M> unit) {

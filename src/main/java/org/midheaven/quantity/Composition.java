@@ -2,12 +2,15 @@ package org.midheaven.quantity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Composition {
-
+    
+ 
     interface Composable {
         boolean isIdentity();
+        String symbol();
     }
     
     record Term(Composable value, int exponent){}
@@ -27,6 +30,9 @@ class Composition {
         terms = new HashMap<>(other.terms);
     }
     
+    int termsCount (){
+        return terms.size();
+    }
     
     Composition times(Composition other){
         return combine(other, +1);
@@ -97,4 +103,17 @@ class Composition {
     public String toString(){
         return terms.toString();
     }
+    
+    public String symbol() {
+        return terms.entrySet().stream()
+         .filter(entry -> entry.getValue() != 0)
+        .map(entry -> {
+            if (entry.getValue() == 1){
+                return entry.getKey().symbol();
+            } else {
+                return entry.getKey().symbol() + "^" + entry.getValue();
+            }
+        }).collect(Collectors.joining(" "));
+    }
+    
 }

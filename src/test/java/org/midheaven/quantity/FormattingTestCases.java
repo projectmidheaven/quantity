@@ -18,16 +18,19 @@ public class FormattingTestCases {
             new Case("L", StandardDimensions.DISTANCE),
             new Case("L / T", StandardDimensions.VELOCITY),
             new Case("L M / T^2", StandardDimensions.FORCE),
-            new Case("L^2 M / T^2", StandardDimensions.ENERGY)
+            new Case("L^2 M / T^2", StandardDimensions.ENERGY),
+            new Case("L^2", StandardDimensions.AREA),
+            new Case("T L^2", StandardDimensions.AREA.times(StandardDimensions.TIME))
         );
         
         var formatter = new DimensionFormatter();
         
         for (var item : list) {
-            assertEquals(item.format, formatter.format(item.dim));
-            assertEquals(item.dim, formatter.parse(item.format));
+            var formated = formatter.format(item.dim);
+            assertEquals(item.format, formated);
+            assertEquals(item.dim, formatter.parse(formated));
         }
-       
         
     }
+    
 }

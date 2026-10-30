@@ -52,13 +52,8 @@ public class DimensionFormatter {
             return parseSequence(multiply.sequence()).over(parseSequence(divide.sequence()));
           
         }
-        
-        var split = Strings.Splitter.split(text).by(" ");
-        if (split.count().toInt() == 1){
-            return BaseDimension.ofAxis(text);
-        }
-        
-        return (Dimension<M>) parseSequence(split.sequence());
+
+        return (Dimension<M>) parseSequence(Strings.Splitter.split(text).by(" ").sequence());
     }
     
     private Dimension<?> parseSequence(Sequence<String> sequence){

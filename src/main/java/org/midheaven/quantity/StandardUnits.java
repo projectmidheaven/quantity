@@ -50,7 +50,7 @@ public class StandardUnits {
     
     public static Unit<TimeFrequency> HERTZ = UnitsSymbolsRegister.register(SECOND.raise(-1), "Hz");
     public static Unit<Mass> TON = UnitsSymbolsRegister.register(Prefix.mega(GRAM), "t");
-    public static Unit<Area> SQUARE_METER = METER.times(METER);
+    public static Unit<Area> SQUARE_METER = UnitsSymbolsRegister.register(METER.times(METER), METER.times(METER).symbol());
     public static Unit<Volume> CUBIC_METER = METER.times(METER).times(METER);
     public static Unit<Force> NEWTON = UnitsSymbolsRegister.register(KILOGRAM.times(METER.over(SECOND).over(SECOND)), "N");
     public static Unit<Energy> JOULE =  UnitsSymbolsRegister.register(KILOGRAM.times(SQUARE_METER).over(SECOND).over(SECOND), "J");
@@ -63,7 +63,7 @@ public class StandardUnits {
     public static Unit<MagneticFluxDensity> TESLA =  UnitsSymbolsRegister.register(KILOGRAM.over(AMPERE).over(SECOND.raise(2)), "T");
     
     public static Unit<Area> ARE = UnitsSymbolsRegister.register(new MultipleUnit<>("a", Rational.TEN.raisedTo(2), SQUARE_METER), "a");
-    
+
     public static Unit<Currency> ofCurrency(String isoCode){
         return new BaseUnit<>(isoCode, StandardDimensions.CURRENCY);
     }

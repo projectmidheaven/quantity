@@ -104,7 +104,7 @@ public interface Quantity<M extends Measurable> extends Signed<Quantity<M>>, Ord
     <R extends Measurable, S extends Measurable> Quantity<R> over(Quantity<S> other);
     
     <R extends Measurable, S extends Measurable> Quantity<R> times(Quantity<S> other);
-
+    
     default Quantity<M> humanize(){
         // reduce to number closes to 1
         if (magnitude().isZero()){
